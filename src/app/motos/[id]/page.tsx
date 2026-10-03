@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import BotaoExcluirMoto from "./BotaoExcluirMoto";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -54,12 +55,16 @@ export default async function DetalhesMotoPage({
         {moto.marca} {moto.modelo}
       </h1>
 
-      <Link
-        href={`/motos/${moto.id}/editar`}
-        className="mt-4 inline-block rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
-      >
-        Editar moto
-      </Link>
+      <div className="mt-4 flex flex-wrap items-start gap-3">
+        <Link
+          href={`/motos/${moto.id}/editar`}
+          className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+        >
+          Editar moto
+        </Link>
+
+        <BotaoExcluirMoto id={moto.id} />
+      </div>
 
       <dl className="mt-6 space-y-4 rounded-lg border p-5">
         <div>
