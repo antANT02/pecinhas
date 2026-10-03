@@ -69,6 +69,7 @@ export default async function PainelPage() {
         {motos.length === 0 ? (
           <div className="mt-6 rounded-lg border p-6">
             <p>Você ainda não cadastrou nenhuma moto.</p>
+
             <p className="mt-2 text-sm text-gray-600">
               Clique em “Cadastrar moto” para começar.
             </p>
@@ -104,6 +105,13 @@ export default async function PainelPage() {
                     </dd>
                   </div>
                 </dl>
+
+                <Link
+                  href={`/motos/${moto.id}`}
+                  className="mt-4 inline-block rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                >
+                  Ver detalhes
+                </Link>
               </li>
             ))}
           </ul>
