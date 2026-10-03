@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
@@ -47,6 +48,7 @@ export default async function DetalhesMotoPage({
       placa: true,
       cor: true,
       descricao: true,
+      imagemUrl: true,
       servicos: {
         where: {
           userId: sessao.user.id,
@@ -80,7 +82,29 @@ export default async function DetalhesMotoPage({
         {moto.marca} {moto.modelo}
       </h1>
 
+      {moto.imagemUrl ? (
+        <Image
+          src={moto.imagemUrl}
+          alt={`Foto da moto ${moto.marca} ${moto.modelo}`}
+          width={900}
+          height={600}
+          unoptimized
+          className="mt-6 h-auto max-h-96 w-full rounded-lg object-contain"
+        />
+      ) : (
+        <p className="mt-6 rounded-lg border p-5">
+          Esta moto ainda não tem foto.
+        </p>
+      )}
+
       <div className="mt-4 flex flex-wrap items-start gap-3">
+        <Link
+          href={`/motos/${moto.id}/foto`}
+          className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+        >
+          {moto.imagemUrl ? "Trocar foto" : "Adicionar foto"}
+        </Link>
+
         <Link
           href={`/motos/${moto.id}/editar`}
           className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
