@@ -14,6 +14,15 @@ type DetalhesMotoProps = {
   };
 };
 
+const formatarValor = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
+
+const formatarData = new Intl.DateTimeFormat("pt-BR", {
+  timeZone: "UTC",
+});
+
 export default async function DetalhesMotoPage({
   params,
 }: DetalhesMotoProps) {
@@ -38,6 +47,22 @@ export default async function DetalhesMotoPage({
       placa: true,
       cor: true,
       descricao: true,
+      servicos: {
+        where: {
+          userId: sessao.user.id,
+        },
+        orderBy: [
+          { dataServico: "desc" },
+          { createdAt: "desc" },
+        ],
+        select: {
+          id: true,
+          titulo: true,
+          descricao: true,
+          dataServico: true,
+          valor: true,
+        },
+      },
     },
   });
 
@@ -103,6 +128,52 @@ export default async function DetalhesMotoPage({
           </dd>
         </div>
       </dl>
+
+      <section className="mt-8">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h2 className="text-2xl font-semibold">
+            Serviços ({moto.servicos.length})
+          </h2>
+
+          <Link
+            href={`/motos/${moto.id}/servicos/novo`}
+            className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+          >
+            Cadastrar serviço
+          </Link>
+        </div>
+
+        {moto.servicos.length === 0 ? (
+          <p className="mt-4 rounded-lg border p-5">
+            Nenhum serviço cadastrado para esta moto.
+          </p>
+        ) : (
+          <ul className="mt-4 space-y-4">
+            {moto.servicos.map((servico) => (
+              <li
+                key={servico.id}
+                className="min-w-0 rounded-lg border p-5"
+              >
+                <h3 className="break-words text-xl font-semibold">
+                  {servico.titulo}
+                </h3>
+
+                <p className="mt-2">
+                  Data: {formatarData.format(servico.dataServico)}
+                </p>
+
+                <p className="mt-2 font-medium">
+                  Valor: {formatarValor.format(servico.valor.toNumber())}
+                </p>
+
+                <p className="mt-3 whitespace-pre-wrap break-words">
+                  {servico.descricao || "Nenhuma descrição informada."}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </main>
   );
 }
