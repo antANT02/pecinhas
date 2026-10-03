@@ -30,6 +30,7 @@ export default async function DetalhesMotoPage({
       userId: sessao.user.id,
     },
     select: {
+      id: true,
       marca: true,
       modelo: true,
       ano: true,
@@ -45,16 +46,20 @@ export default async function DetalhesMotoPage({
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-3xl px-4 py-8">
-      <Link
-        href="/painel"
-        className="text-blue-600 underline"
-      >
+      <Link href="/painel" className="text-blue-600 underline">
         Voltar ao painel
       </Link>
 
       <h1 className="mt-6 break-words text-3xl font-bold">
         {moto.marca} {moto.modelo}
       </h1>
+
+      <Link
+        href={`/motos/${moto.id}/editar`}
+        className="mt-4 inline-block rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+      >
+        Editar moto
+      </Link>
 
       <dl className="mt-6 space-y-4 rounded-lg border p-5">
         <div>
