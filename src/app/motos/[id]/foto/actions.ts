@@ -11,6 +11,14 @@ import { prisma } from "@/lib/prisma";
 
 const tamanhoMaximo = 2 * 1024 * 1024;
 
+function falha(error: string) {
+  return {
+    error,
+    sucesso: false,
+    aviso: "",
+  };
+}
+
 function identificarImagem(bytes: Buffer) {
   if (
     bytes.length >= 3 &&
@@ -41,51 +49,71 @@ function identificarImagem(bytes: Buffer) {
   return null;
 }
 
+function pertenceAMoto(
+  endereco: string,
+  userId: string,
+  motoId: string
+) {
+  try {
+    const url = new URL(endereco);
+
+    return (
+      url.protocol === "https:" &&
+      url.hostname.endsWith(".public.blob.vercel-storage.com") &&
+      url.pathname.startsWith(`/motos/${userId}/${motoId}/`)
+    );
+  } catch {
+    return false;
+  }
+}
+
+async function apagarArquivo(endereco: string) {
+  try {
+    await del(endereco);
+    return true;
+  } catch {
+    console.warn("LIMPEZA_FOTO: não foi possível excluir um arquivo.");
+    return false;
+  }
+}
+
 export async function enviarFoto(motoId: string, formData: FormData) {
   const sessao = await auth.api.getSession({
     headers: await headers(),
   });
 
   if (!sessao) {
-    return {
-      error: "Sua sessão terminou. Entre novamente para enviar a foto.",
-      sucesso: false,
-    };
+    return falha(
+      "Sua sessão terminou. Entre novamente para enviar a foto."
+    );
   }
 
   const idValidado = z.string().cuid().safeParse(motoId);
 
   if (!idValidado.success) {
-    return {
-      error: "O identificador da moto é inválido.",
-      sucesso: false,
-    };
+    return falha("O identificador da moto é inválido.");
   }
 
   const arquivo = formData.get("imagem");
 
   if (!(arquivo instanceof File) || arquivo.size === 0) {
-    return {
-      error: "Selecione uma imagem.",
-      sucesso: false,
-    };
+    return falha("Selecione uma imagem.");
   }
 
   if (arquivo.size > tamanhoMaximo) {
-    return {
-      error: "A imagem deve ter no máximo 2 MB.",
-      sucesso: false,
-    };
+    return falha("A imagem deve ter no máximo 2 MB.");
   }
 
   if (!["image/jpeg", "image/png", "image/webp"].includes(arquivo.type)) {
-    return {
-      error: "Envie uma imagem JPG, PNG ou WebP.",
-      sucesso: false,
-    };
+    return falha("Envie uma imagem JPG, PNG ou WebP.");
+  }
+
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    return falha("O armazenamento de imagens ainda não está configurado.");
   }
 
   let novaUrl: string | null = null;
+  let fotoAnterior: string | null = null;
 
   try {
     const moto = await prisma.moto.findFirst({
@@ -95,31 +123,23 @@ export async function enviarFoto(motoId: string, formData: FormData) {
       },
       select: {
         id: true,
+        imagemUrl: true,
       },
     });
 
     if (!moto) {
-      return {
-        error: "Moto não encontrada ou você não tem permissão para alterar a foto.",
-        sucesso: false,
-      };
+      return falha(
+        "Moto não encontrada ou você não tem permissão para alterar a foto."
+      );
     }
 
     const bytes = Buffer.from(await arquivo.arrayBuffer());
     const formato = identificarImagem(bytes);
 
     if (!formato || formato.tipo !== arquivo.type) {
-      return {
-        error: "O arquivo não corresponde a uma imagem JPG, PNG ou WebP.",
-        sucesso: false,
-      };
-    }
-
-    if (!process.env.BLOB_READ_WRITE_TOKEN) {
-      return {
-        error: "O armazenamento de imagens ainda não está configurado.",
-        sucesso: false,
-      };
+      return falha(
+        "O arquivo não corresponde a uma imagem JPG, PNG ou WebP."
+      );
     }
 
     const caminho =
@@ -138,6 +158,7 @@ export async function enviarFoto(motoId: string, formData: FormData) {
       where: {
         id: moto.id,
         userId: sessao.user.id,
+        imagemUrl: moto.imagemUrl,
       },
       data: {
         imagemUrl: blob.url,
@@ -145,29 +166,47 @@ export async function enviarFoto(motoId: string, formData: FormData) {
     });
 
     if (atualizacao.count === 0) {
-      await del(blob.url);
+      const limpou = await apagarArquivo(blob.url);
       novaUrl = null;
 
-      return {
-        error: "A moto não está mais disponível para receber a foto.",
-        sucesso: false,
-      };
-    }
-  } catch {
-    if (novaUrl) {
-      try {
-        await del(novaUrl);
-      } catch {
-        // A falha na limpeza não impede a mensagem ao usuário.
-      }
+      return falha(
+        limpou
+          ? "A moto foi excluída ou sua foto mudou durante o envio. Atualize a página e tente novamente."
+          : "A foto não foi salva e o arquivo enviado não pôde ser removido do Blob. Confira o armazenamento."
+      );
     }
 
-    return {
-      error: "Não foi possível salvar a foto. Confira a configuração do Blob e tente novamente.",
-      sucesso: false,
-    };
+    fotoAnterior = moto.imagemUrl;
+    novaUrl = null;
+  } catch {
+    let limpou = true;
+
+    if (novaUrl) {
+      limpou = await apagarArquivo(novaUrl);
+    }
+
+    return falha(
+      limpou
+        ? "Não foi possível salvar a foto. Tente novamente."
+        : "Não foi possível salvar a foto nem remover o arquivo enviado do Blob. Confira o armazenamento."
+    );
   }
 
+  let aviso = "";
+
+  if (
+    fotoAnterior &&
+    pertenceAMoto(fotoAnterior, sessao.user.id, idValidado.data)
+  ) {
+    const limpou = await apagarArquivo(fotoAnterior);
+
+    if (!limpou) {
+      aviso =
+        "A nova foto foi salva, mas não foi possível excluir o arquivo anterior. A limpeza deverá ser feita no painel do Blob.";
+    }
+  }
+
+  revalidatePath("/");
   revalidatePath("/painel");
   revalidatePath(`/motos/${idValidado.data}`);
   revalidatePath(`/motos/${idValidado.data}/foto`);
@@ -175,5 +214,6 @@ export async function enviarFoto(motoId: string, formData: FormData) {
   return {
     error: "",
     sucesso: true,
+    aviso,
   };
 }
