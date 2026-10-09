@@ -1,3 +1,4 @@
+import EstruturaPagina from "@/components/EstruturaPagina";
 import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
@@ -75,8 +76,8 @@ export default async function DetalhesMotoPage({
   }
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-3xl px-4 py-8">
-      <Link href="/painel" className="text-blue-600 underline">
+    <EstruturaPagina tipo="detalhes" etiqueta="FICHA DA MOTO / HISTÓRICO">
+      <Link href="/painel" className="psLink">
         Voltar ao painel
       </Link>
 
@@ -91,10 +92,10 @@ export default async function DetalhesMotoPage({
           width={900}
           height={600}
           unoptimized
-          className="mt-6 h-auto max-h-96 w-full rounded-lg object-contain"
+          className="psFotoDetalhe"
         />
       ) : (
-        <p className="mt-6 rounded-lg border p-5">
+        <p className="psEstadoVazio mt-6">
           Esta moto ainda não tem foto.
         </p>
       )}
@@ -102,14 +103,14 @@ export default async function DetalhesMotoPage({
       <div className="mt-4 flex flex-wrap items-start gap-3">
         <Link
           href={`/motos/${moto.id}/foto`}
-          className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+          className="psBotao psPrimario"
         >
           {moto.imagemUrl ? "Trocar foto" : "Adicionar foto"}
         </Link>
 
         <Link
           href={`/motos/${moto.id}/editar`}
-          className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+          className="psBotao psPrimario"
         >
           Editar moto
         </Link>
@@ -117,7 +118,7 @@ export default async function DetalhesMotoPage({
         <BotaoExcluirMoto id={moto.id} />
       </div>
 
-      <dl className="mt-6 space-y-4 rounded-lg border p-5">
+      <dl className="psFicha mt-6">
         <div>
           <dt className="font-semibold">Marca</dt>
           <dd className="break-words">{moto.marca}</dd>
@@ -155,7 +156,7 @@ export default async function DetalhesMotoPage({
         </div>
       </dl>
 
-      <section className="mt-8">
+      <section className="psServicos">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <h2 className="text-2xl font-semibold">
             Serviços ({moto.servicos.length})
@@ -163,14 +164,14 @@ export default async function DetalhesMotoPage({
 
           <Link
             href={`/motos/${moto.id}/servicos/novo`}
-            className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+            className="psBotao psPrimario"
           >
             Cadastrar serviço
           </Link>
         </div>
 
         {moto.servicos.length === 0 ? (
-          <p className="mt-4 rounded-lg border p-5">
+          <p className="psEstadoVazio mt-4">
             Nenhum serviço cadastrado para esta moto.
           </p>
         ) : (
@@ -178,7 +179,7 @@ export default async function DetalhesMotoPage({
             {moto.servicos.map((servico) => (
               <li
                 key={servico.id}
-                className="min-w-0 rounded-lg border p-5"
+                className="psServico min-w-0"
               >
                 <h3 className="break-words text-xl font-semibold">
                   {servico.titulo}
@@ -188,7 +189,7 @@ export default async function DetalhesMotoPage({
                   Data: {formatarData.format(servico.dataServico)}
                 </p>
 
-                <p className="mt-2 font-medium">
+                <p className="psValorServico mt-2">
                   Valor: {formatarValor.format(servico.valor.toNumber())}
                 </p>
 
@@ -200,6 +201,6 @@ export default async function DetalhesMotoPage({
           </ul>
         )}
       </section>
-    </main>
+    </EstruturaPagina>
   );
 }

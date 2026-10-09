@@ -50,10 +50,10 @@ export default function FormularioCadastro() {
   }
 
   const classeCampo =
-    "w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3 py-3 text-slate-900 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 disabled:bg-slate-100";
+    "psCampo";
 
   return (
-    <form onSubmit={enviar} noValidate className="space-y-5">
+    <form onSubmit={enviar} noValidate className="psFormulario space-y-5">
       <div>
         <label
           htmlFor="nome"
@@ -116,7 +116,7 @@ export default function FormularioCadastro() {
 
         <p
           id="orientacaoSenha"
-          className="mt-2 text-sm text-slate-600"
+          className="mt-2 text-sm psTextoSecundario"
         >
           Use de 8 a 128 caracteres.
         </p>
@@ -125,7 +125,7 @@ export default function FormularioCadastro() {
       {erro && (
         <p
           role="alert"
-          className="rounded-lg bg-red-50 p-3 text-sm text-red-700"
+          className="psAviso psErro"
         >
           {erro}
         </p>
@@ -134,7 +134,7 @@ export default function FormularioCadastro() {
       {sucesso && (
         <p
           role="status"
-          className="rounded-lg bg-green-50 p-3 text-sm text-green-800"
+          className="psAviso psSucesso"
         >
           Conta criada! Abrindo seu painel...
         </p>
@@ -143,7 +143,7 @@ export default function FormularioCadastro() {
       <button
         type="submit"
         disabled={enviando || sucesso}
-        className="w-full rounded-lg bg-orange-600 px-4 py-3 font-semibold text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full psBotao psPrimario"
       >
         {sucesso
           ? "Abrindo painel..."

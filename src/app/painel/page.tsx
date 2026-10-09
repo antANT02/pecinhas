@@ -1,4 +1,6 @@
+import EstruturaPagina from "@/components/EstruturaPagina";
 import Link from "next/link";
+import Image from "next/image";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
@@ -31,12 +33,13 @@ export default async function PainelPage() {
       ano: true,
       placa: true,
       cor: true,
+      imagemUrl: true,
     },
   });
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-5xl px-4 py-8">
-      <header className="flex flex-wrap items-start justify-between gap-4">
+    <EstruturaPagina tipo="painel" etiqueta="SEU ESPAÇO / MOTOS">
+      <header className="psCabecalhoPainel flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
           <h1 className="text-3xl font-bold">Painel Pecinhas</h1>
 
@@ -44,7 +47,7 @@ export default async function PainelPage() {
             Olá, {sessao.user.name}!
           </p>
 
-          <p className="break-all text-sm text-gray-600">
+          <p className="break-all text-sm psTextoSecundario">
             {sessao.user.email}
           </p>
         </div>
@@ -52,7 +55,7 @@ export default async function PainelPage() {
         <BotaoSair />
       </header>
 
-      <section className="mt-8">
+      <section className="psSecaoMotos">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <h2 className="text-2xl font-semibold">
             Minhas motos ({motos.length})
@@ -60,63 +63,81 @@ export default async function PainelPage() {
 
           <Link
             href="/motos/nova"
-            className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+            className="psBotao psPrimario"
           >
             Cadastrar moto
           </Link>
         </div>
 
         {motos.length === 0 ? (
-          <div className="mt-6 rounded-lg border p-6">
+          <div className="psEstadoVazio mt-6">
             <p>Você ainda não cadastrou nenhuma moto.</p>
 
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm psTextoSecundario">
               Clique em “Cadastrar moto” para começar.
             </p>
           </div>
         ) : (
-          <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <ul className="psGradePainel">
             {motos.map((moto) => (
               <li
                 key={moto.id}
-                className="min-w-0 rounded-lg border p-5"
+                className="psCartaoPainel"
               >
-                <h3 className="break-words text-xl font-semibold">
-                  {moto.marca} {moto.modelo}
-                </h3>
-
-                <dl className="mt-4 space-y-2">
-                  <div>
-                    <dt className="text-sm text-gray-600">Ano</dt>
-                    <dd>{moto.ano}</dd>
+                {moto.imagemUrl ? (
+                  <Image
+                    src={moto.imagemUrl}
+                    alt={`Foto da moto ${moto.marca} ${moto.modelo}`}
+                    width={600}
+                    height={450}
+                    unoptimized
+                    className="psFotoPainel"
+                  />
+                ) : (
+                  <div className="psSemFotoPainel">
+                    <svg width="36" height="36" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                      <path d="M7 26V6h12l6 6-6 6H7" stroke="currentColor" strokeWidth="3" />
+                    </svg>
+                    <span>Foto ainda não cadastrada</span>
                   </div>
+                )}
+                <div className="psDadosPainel">
+                  <p className="psEtiqueta">{moto.marca}</p>
+                  <h3>{moto.modelo}</h3>
 
-                  <div>
-                    <dt className="text-sm text-gray-600">Placa</dt>
-                    <dd className="break-words">
-                      {moto.placa || "Não informada"}
-                    </dd>
-                  </div>
+                  <dl className="psDadosFicha">
+                    <div>
+                      <dt className="text-sm psTextoSecundario">Ano</dt>
+                      <dd>{moto.ano}</dd>
+                    </div>
 
-                  <div>
-                    <dt className="text-sm text-gray-600">Cor</dt>
-                    <dd className="break-words">
-                      {moto.cor || "Não informada"}
-                    </dd>
-                  </div>
-                </dl>
+                    <div>
+                      <dt className="text-sm psTextoSecundario">Placa</dt>
+                      <dd className="break-words">
+                        {moto.placa || "Não informada"}
+                      </dd>
+                    </div>
 
-                <Link
-                  href={`/motos/${moto.id}`}
-                  className="mt-4 inline-block rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-                >
-                  Ver detalhes
-                </Link>
+                    <div>
+                      <dt className="text-sm psTextoSecundario">Cor</dt>
+                      <dd className="break-words">
+                        {moto.cor || "Não informada"}
+                      </dd>
+                    </div>
+                  </dl>
+
+                  <Link
+                    href={`/motos/${moto.id}`}
+                    className="psBotao psPrimario"
+                  >
+                    Ver detalhes
+                  </Link>
+                </div>
               </li>
             ))}
           </ul>
         )}
       </section>
-    </main>
+    </EstruturaPagina>
   );
 }

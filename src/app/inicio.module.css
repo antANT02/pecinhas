@@ -1,0 +1,920 @@
+.pagina {
+  --fundo:#18181b;
+  --superficie:#202023;
+  --borda:#38383d;
+  --texto:#fafafa;
+  --secundario:#b5b5bd;
+  --destaque:#ff813f;
+  background:var(--fundo);
+  color:var(--texto);
+  min-height:100vh;
+  font-family:var(--font-geist-sans),Arial,sans-serif;
+  line-height:1.5;
+ 
+}
+.pagina *, .pagina *::before, .pagina *::after {
+  box-sizing:border-box;
+ 
+}
+.pagina svg {
+  flex-shrink:0;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:square;
+  stroke-linejoin:miter;
+ 
+}
+.pagina a,.pagina button {
+  transition:background-color .18s ease-out,color .18s ease-out,border-color .18s ease-out;
+ 
+}
+.pagina :is(a,button,input):focus-visible {
+  outline:3px solid var(--destaque);
+  outline-offset:5px;
+ 
+}
+.pagina h1,.pagina h2,.pagina h3,.pagina p {
+  margin:0;
+ 
+}
+.container {
+  width:min(1240px,calc(100% - 80px));
+  margin-inline:auto;
+ 
+}
+.pular {
+  position:fixed;
+  top:12px;
+  left:12px;
+  z-index:50;
+  padding:12px 20px;
+  background:var(--destaque);
+  color:var(--fundo);
+  transform:translateY(-150%);
+ 
+}
+.pular:focus {
+  transform:translateY(0);
+ 
+}
+.cabecalho {
+  border-bottom:1px solid var(--borda);
+ 
+}
+.cabecalho>div {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  min-height:92px;
+ 
+}
+.marca {
+  display:inline-flex;
+  align-items:center;
+  font-size:27px;
+  font-weight:750;
+  letter-spacing:-1.2px;
+  white-space:nowrap;
+ 
+}
+.simbolo {
+  display:inline-flex;
+  color:var(--destaque);
+  margin-right:10px;
+ 
+}
+.ponto {
+  color:var(--destaque);
+ 
+}
+.navegacao {
+  display:flex;
+  align-items:center;
+  gap:32px;
+  font-size:14px;
+  font-weight:550;
+ 
+}
+.navegacao>a:hover,.rodape nav a:hover {
+  color:var(--destaque);
+ 
+}
+.botaoPainel {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  min-height:44px;
+  border:1px solid #626268;
+  padding:10px 18px;
+ 
+}
+.botaoPainel:hover {
+  background:var(--superficie);
+  border-color:var(--destaque);
+ 
+}
+.hero {
+  display:grid;
+  grid-template-columns:1.05fr 1fr;
+  align-items:center;
+  gap:70px;
+  padding-block:66px 72px;
+ 
+}
+.heroTexto {
+  min-width:0;
+ 
+}
+.etiqueta,.microTexto,.rotuloImagem,.etapas li>span,.resumoResultados,.fichaMoto dt,.seloAno {
+  font-family:var(--font-geist-mono),monospace;
+ 
+}
+.etiqueta {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:11px;
+  line-height:1.6;
+  font-weight:500;
+  letter-spacing:1.1px;
+  color:var(--secundario);
+ 
+}
+.etiqueta>span {
+  width:6px;
+  height:6px;
+  background:var(--destaque);
+ 
+}
+.hero h1 {
+  margin-top:24px;
+  font-size:clamp(44px,4.8vw,66px);
+  font-weight:650;
+  line-height:1.05;
+  letter-spacing:-2.8px;
+ 
+}
+.hero h1>span {
+  color:var(--destaque);
+ 
+}
+.descricao {
+  margin-top:28px!important;
+  max-width:410px;
+  color:var(--secundario);
+  font-size:16px;
+  line-height:1.8;
+ 
+}
+.acoesHero {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:22px;
+  margin-top:32px;
+ 
+}
+.botaoPrimario {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  min-height:48px;
+  padding:13px 20px;
+  color:#18181b;
+  background:var(--destaque);
+  border:1px solid var(--destaque);
+  font-size:14px;
+  font-weight:650;
+  cursor:pointer;
+  white-space:nowrap;
+ 
+}
+.botaoPrimario:hover {
+  background:#ffa16f;
+  border-color:#ffa16f;
+ 
+}
+.botaoTexto {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  min-height:44px;
+  font-size:14px;
+  font-weight:550;
+ 
+}
+.botaoTexto:hover {
+  color:var(--destaque);
+ 
+}
+.notaHero {
+  margin-top:20px!important;
+  font-size:12px;
+  color:var(--secundario);
+ 
+}
+.notaHero a {
+  color:var(--texto);
+  text-decoration:underline;
+  text-underline-offset:4px;
+ 
+}
+.heroVisual {
+  min-width:0;
+  position:relative;
+  border:1px solid var(--borda);
+  background:#101012;
+ 
+}
+.rotuloImagem {
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  padding:14px 18px;
+  font-size:9px;
+  letter-spacing:1.1px;
+  color:var(--secundario);
+  border-bottom:1px solid var(--borda);
+ 
+}
+.rotuloImagem>span:first-child {
+  color:var(--destaque);
+ 
+}
+.imagemHero {
+  display:block;
+  width:100%;
+  height:380px;
+  object-fit:cover;
+  filter:saturate(.72) contrast(1.04);
+ 
+}
+.legendaHero {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:21px 24px;
+  border-top:1px solid var(--borda);
+ 
+}
+.microTexto {
+  display:block;
+  font-size:10px;
+  letter-spacing:1.2px;
+  color:var(--secundario);
+  text-transform:uppercase;
+ 
+}
+.legendaHero p {
+  margin-top:6px;
+  font-size:18px;
+  font-weight:550;
+  overflow-wrap:anywhere;
+ 
+}
+.anoHero {
+  color:var(--destaque);
+  font-family:var(--font-geist-mono),monospace;
+  font-size:24px;
+ 
+}
+.heroSemFoto {
+  min-height:380px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  gap:24px;
+  padding:40px;
+  background-image:linear-gradient(var(--superficie) 1px,transparent 1px),linear-gradient(90deg,var(--superficie) 1px,transparent 1px);
+  background-size:48px 48px;
+ 
+}
+.heroSemFoto>svg {
+  width:60px;
+  height:60px;
+  color:var(--destaque);
+ 
+}
+.heroSemFoto>span {
+  font-size:30px;
+  line-height:1.2;
+  letter-spacing:-1px;
+ 
+}
+.heroSemFoto>a {
+  display:inline-flex;
+  align-items:center;
+  gap:16px;
+  color:var(--destaque);
+ 
+}
+.faixaRecursos {
+  border-block:1px solid var(--borda);
+  background:#1c1c1f;
+ 
+}
+.faixaRecursos>div {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+ 
+}
+.recurso {
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  padding:28px 24px;
+  border-left:1px solid var(--borda);
+ 
+}
+.recurso:first-child {
+  padding-left:0;
+  border-left:none;
+ 
+}
+.recurso>span {
+  font-family:var(--font-geist-mono),monospace;
+  font-size:11px;
+  color:var(--destaque);
+  padding-top:3px;
+ 
+}
+.recurso h2 {
+  font-size:15px;
+  font-weight:600;
+ 
+}
+.recurso p {
+  margin-top:6px;
+  font-size:12px;
+  color:var(--secundario);
+ 
+}
+.catalogo {
+  padding-block:74px 80px;
+  scroll-margin-top:24px;
+ 
+}
+.tituloCatalogo {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:30px;
+ 
+}
+.tituloCatalogo h2 {
+  font-size:36px;
+  font-weight:600;
+  letter-spacing:-1.4px;
+  line-height:1.15;
+  margin-top:14px;
+ 
+}
+.tituloCatalogo>p {
+  color:var(--secundario);
+  font-size:13px;
+  line-height:1.7;
+ 
+}
+.busca {
+  margin-top:32px;
+  padding:20px;
+  border:1px solid var(--borda);
+  background:var(--superficie);
+ 
+}
+.labelBusca {
+  display:block;
+  font-size:12px;
+  font-weight:550;
+  margin-bottom:10px;
+ 
+}
+.controlesBusca {
+  display:flex;
+  align-items:stretch;
+  gap:10px;
+ 
+}
+.campoBusca {
+  flex:1;
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding-left:16px;
+  background:#18181b;
+  border:1px solid #58585f;
+ 
+}
+.campoBusca>svg {
+  color:var(--secundario);
+ 
+}
+.campoBusca input {
+  width:100%;
+  min-width:0;
+  min-height:48px;
+  border:none;
+  border-radius:0;
+  padding:12px 14px 12px 0;
+  background:transparent;
+  color:var(--texto);
+  font:inherit;
+  font-size:14px;
+  color-scheme:dark;
+ 
+}
+.campoBusca input::placeholder {
+  color:#aaaab3;
+  opacity:1;
+ 
+}
+.campoBusca:focus-within {
+  border-color:var(--destaque);
+ 
+}
+.botaoLimpar {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  padding:10px 16px;
+  font-size:13px;
+  border:1px solid #58585f;
+ 
+}
+.botaoLimpar:hover {
+  border-color:var(--destaque);
+  color:var(--destaque);
+ 
+}
+.resumoResultados {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  margin-block:24px 18px;
+  font-size:10px;
+  color:var(--secundario);
+ 
+}
+.resumoResultados p {
+  overflow-wrap:anywhere;
+  min-width:0;
+ 
+}
+.resumoResultados span {
+  flex-shrink:0;
+ 
+}
+.resumoResultados strong {
+  color:var(--texto);
+  font-weight:500;
+ 
+}
+.gradeMotos {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px;
+  margin:0;
+  padding:0;
+  list-style:none;
+ 
+}
+.cartaoMoto {
+  min-width:0;
+  border:1px solid var(--borda);
+  background:var(--superficie);
+ 
+}
+.fotoMoto {
+  position:relative;
+  background:#121214;
+ 
+}
+.imagemMoto {
+  display:block;
+  width:100%;
+  aspect-ratio:4 / 3;
+  object-fit:cover;
+  filter:saturate(.8);
+ 
+}
+.seloAno {
+  position:absolute;
+  bottom:12px;
+  left:16px;
+  background:#18181b;
+  color:var(--texto);
+  padding:4px 9px;
+  font-size:11px;
+  border:1px solid #626268;
+ 
+}
+.semFoto {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  width:100%;
+  aspect-ratio:4 / 3;
+  color:var(--secundario);
+  font-size:12px;
+ 
+}
+.semFoto>svg {
+  width:42px;
+  height:42px;
+  color:#777780;
+ 
+}
+.fichaMoto {
+  padding:22px;
+  border-top:1px solid var(--borda);
+ 
+}
+.fichaMoto>p {
+  color:var(--destaque);
+  overflow-wrap:anywhere;
+ 
+}
+.fichaMoto h3 {
+  margin-top:6px;
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:-.6px;
+  line-height:1.3;
+  overflow-wrap:anywhere;
+ 
+}
+.fichaMoto dl {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:22px 0 0;
+  padding-top:16px;
+  border-top:1px solid var(--borda);
+ 
+}
+.fichaMoto dt {
+  font-size:9px;
+  letter-spacing:1px;
+  color:var(--secundario);
+ 
+}
+.fichaMoto dd {
+  margin:5px 0 0;
+  font-size:13px;
+  overflow-wrap:anywhere;
+ 
+}
+.vazio {
+  padding:44px 24px;
+  border:1px solid var(--borda);
+  background:var(--superficie);
+ 
+}
+.vazio h3 {
+  margin-top:12px;
+  font-size:26px;
+  line-height:1.2;
+  letter-spacing:-.8px;
+ 
+}
+.vazio p {
+  margin-block:12px 20px;
+  color:var(--secundario);
+  font-size:14px;
+ 
+}
+.comoFunciona {
+  padding:44px 0 64px;
+  border-top:1px solid var(--borda);
+ 
+}
+.tituloProcesso h2 {
+  font-size:34px;
+  letter-spacing:-1.2px;
+  line-height:1.25;
+  font-weight:600;
+  margin-top:14px;
+ 
+}
+.etapas {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:32px;
+  padding:0;
+  margin:34px 0 0;
+  list-style:none;
+ 
+}
+.etapas li {
+  min-width:0;
+  padding-top:18px;
+  border-top:1px solid #626268;
+ 
+}
+.etapas li>span {
+  font-size:10px;
+  letter-spacing:1px;
+  color:var(--destaque);
+ 
+}
+.etapas h3 {
+  font-size:17px;
+  font-weight:550;
+  margin-top:16px;
+ 
+}
+.etapas p {
+  font-size:13px;
+  color:var(--secundario);
+  margin-top:10px;
+  max-width:310px;
+  line-height:1.8;
+ 
+}
+.chamadaFinal {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:26px 28px;
+  margin-top:42px;
+  background:var(--superficie);
+  border:1px solid var(--borda);
+ 
+}
+.chamadaFinal p {
+  font-size:20px;
+  font-weight:550;
+  letter-spacing:-.5px;
+ 
+}
+.rodape {
+  border-top:1px solid var(--borda);
+ 
+}
+.rodape>div {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding-block:32px;
+ 
+}
+.rodape .marca {
+  font-size:22px;
+ 
+}
+.rodape p {
+  font-size:12px;
+  color:var(--secundario);
+ 
+}
+.rodape nav {
+  display:flex;
+  gap:24px;
+  font-size:12px;
+ 
+}
+@media (min-width:1600px) {
+  .hero h1 {
+  font-size:72px;
+ 
+}
+}
+@media (max-width:1000px) {
+  .container {
+  width:calc(100% - 48px);
+ 
+}
+  .hero {
+  gap:32px;
+ 
+}
+  .hero h1 {
+  font-size:49px;
+  letter-spacing:-2px;
+ 
+}
+  .imagemHero,.heroSemFoto {
+  height:340px;
+  min-height:340px;
+ 
+}
+  .gradeMotos {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ 
+}
+  .recurso {
+  padding-inline:16px;
+  gap:12px;
+ 
+}
+}
+@media (max-width:700px) {
+  .container {
+  width:calc(100% - 40px);
+ 
+}
+  .cabecalho>div {
+  min-height:80px;
+  gap:14px;
+  flex-wrap:wrap;
+  padding-block:16px;
+ 
+}
+  .marca {
+  font-size:23px;
+ 
+}
+  .marca .simbolo {
+  margin-right:6px;
+ 
+}
+  .navegacao {
+  gap:16px;
+  font-size:12px;
+ 
+}
+  .navegacao .linkCatalogo {
+  display:none;
+ 
+}
+  .botaoPainel {
+  gap:8px;
+  padding:8px 10px;
+ 
+}
+  .hero {
+  grid-template-columns:minmax(0,1fr);
+  gap:34px;
+  padding-block:38px 36px;
+ 
+}
+  .hero h1 {
+  font-size:clamp(42px,10vw,58px);
+  margin-top:20px;
+ 
+}
+  .descricao {
+  font-size:15px;
+  margin-top:22px!important;
+ 
+}
+  .acoesHero {
+  gap:16px;
+  margin-top:24px;
+ 
+}
+  .botaoPrimario {
+  font-size:13px;
+  gap:16px;
+  padding-inline:16px;
+ 
+}
+  .botaoTexto {
+  font-size:13px;
+ 
+}
+  .notaHero {
+  margin-top:16px!important;
+ 
+}
+  .imagemHero {
+  height:310px;
+ 
+}
+  .heroSemFoto {
+  min-height:310px;
+  height:auto;
+  padding:28px;
+ 
+}
+  .legendaHero {
+  padding:18px;
+ 
+}
+  .legendaHero p {
+  font-size:16px;
+ 
+}
+  .faixaRecursos>div {
+  grid-template-columns:minmax(0,1fr);
+ 
+}
+  .recurso,.recurso:first-child {
+  padding:20px 0;
+  border-left:none;
+  border-top:1px solid var(--borda);
+  gap:18px;
+ 
+}
+  .recurso:first-child {
+  border-top:none;
+ 
+}
+  .catalogo {
+  padding-block:44px 48px;
+ 
+}
+  .tituloCatalogo {
+  display:block;
+ 
+}
+  .tituloCatalogo h2 {
+  font-size:32px;
+ 
+}
+  .tituloCatalogo>p {
+  margin-top:16px;
+ 
+}
+  .busca {
+  padding:16px;
+  margin-top:24px;
+ 
+}
+  .controlesBusca {
+  flex-wrap:wrap;
+ 
+}
+  .campoBusca {
+  flex-basis:100%;
+ 
+}
+  .controlesBusca .botaoPrimario {
+  flex:1;
+ 
+}
+  .resumoResultados {
+  font-size:9px;
+  gap:8px;
+ 
+}
+  .gradeMotos {
+  grid-template-columns:minmax(0,1fr);
+  gap:20px;
+ 
+}
+  .fichaMoto h3 {
+  font-size:25px;
+ 
+}
+  .comoFunciona {
+  padding-block:32px 40px;
+ 
+}
+  .tituloProcesso h2 {
+  font-size:29px;
+ 
+}
+  .etapas {
+  grid-template-columns:minmax(0,1fr);
+  gap:24px;
+  margin-top:28px;
+ 
+}
+  .etapas h3 {
+  margin-top:10px;
+ 
+}
+  .chamadaFinal {
+  align-items:stretch;
+  flex-direction:column;
+  padding:22px;
+  margin-top:28px;
+ 
+}
+  .chamadaFinal p {
+  font-size:19px;
+ 
+}
+  .rodape>div {
+  align-items:flex-start;
+  flex-direction:column;
+  gap:18px;
+ 
+}
+  .rodape nav a {
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+ 
+}
+}
+@media (prefers-reduced-motion:reduce) {
+  .pagina a,.pagina button {
+  transition:none;
+ 
+}
+}

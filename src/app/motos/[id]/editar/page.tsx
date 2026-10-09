@@ -1,3 +1,4 @@
+import EstruturaPagina from "@/components/EstruturaPagina";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
@@ -57,17 +58,17 @@ export default async function EditarMotoPage({
   };
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-2xl px-4 py-8">
+    <EstruturaPagina tipo="formulario" etiqueta="DADOS & REGISTROS">
       <Link
         href={`/motos/${moto.id}`}
-        className="text-blue-600 underline"
+        className="psLink"
       >
         Voltar aos detalhes
       </Link>
 
       <h1 className="mt-6 text-3xl font-bold">Editar moto</h1>
 
-      <p className="mt-2 text-sm text-gray-600">
+      <p className="mt-2 text-sm psTextoSecundario">
         Os campos com * são obrigatórios.
       </p>
 
@@ -75,6 +76,6 @@ export default async function EditarMotoPage({
         id={moto.id}
         valoresIniciais={valoresIniciais}
       />
-    </main>
+    </EstruturaPagina>
   );
 }

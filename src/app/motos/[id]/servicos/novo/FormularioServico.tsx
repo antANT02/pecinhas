@@ -53,11 +53,11 @@ export default function FormularioServico({
   }
 
   return (
-    <form onSubmit={enviar} className="mt-6 space-y-4">
+    <form onSubmit={enviar} className="psFormulario mt-6 space-y-4">
       {erro && (
         <p
           role="alert"
-          className="rounded-lg border border-red-300 bg-red-50 p-3 text-red-800"
+          className="psAviso psErro"
         >
           {erro}
         </p>
@@ -84,7 +84,7 @@ export default function FormularioServico({
           maxLength={120}
           required
           disabled={enviando}
-          className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+          className="psCampo"
         />
       </div>
 
@@ -107,7 +107,7 @@ export default function FormularioServico({
           }
           required
           disabled={enviando}
-          className="min-w-0 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+          className="psCampo"
         />
       </div>
 
@@ -132,10 +132,10 @@ export default function FormularioServico({
           maxLength={11}
           required
           disabled={enviando}
-          className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+          className="psCampo"
         />
 
-        <p className="mt-1 text-sm text-gray-600">
+        <p className="mt-1 text-sm psTextoSecundario">
           Use somente números e vírgula ou ponto. Ex.: 85,50.
         </p>
       </div>
@@ -158,7 +158,7 @@ export default function FormularioServico({
             }))
           }
           disabled={enviando}
-          className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+          className="psCampo"
         />
       </div>
 
@@ -166,14 +166,14 @@ export default function FormularioServico({
         <button
           type="submit"
           disabled={enviando}
-          className="rounded-lg bg-blue-600 px-4 py-3 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+          className="psBotao psPrimario"
         >
           {enviando ? "Cadastrando..." : "Cadastrar serviço"}
         </button>
 
         <Link
           href={`/motos/${motoId}`}
-          className="text-blue-600 underline"
+          className="psLink"
         >
           Cancelar
         </Link>

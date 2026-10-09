@@ -65,11 +65,11 @@ export default function FormularioEditarMoto({
   }
 
   return (
-    <form onSubmit={enviar} className="mt-6 space-y-4">
+    <form onSubmit={enviar} className="psFormulario mt-6 space-y-4">
       {erro && (
         <p
           role="alert"
-          className="rounded-lg border border-red-300 bg-red-50 p-3 text-red-800"
+          className="psAviso psErro"
         >
           {erro}
         </p>
@@ -100,7 +100,7 @@ export default function FormularioEditarMoto({
             maxLength={campo.limite}
             required={campo.obrigatorio}
             disabled={enviando}
-            className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+            className="psCampo"
           />
         </div>
       ))}
@@ -123,7 +123,7 @@ export default function FormularioEditarMoto({
             }))
           }
           disabled={enviando}
-          className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+          className="psCampo"
         />
       </div>
 
@@ -131,14 +131,14 @@ export default function FormularioEditarMoto({
         <button
           type="submit"
           disabled={enviando}
-          className="rounded-lg bg-blue-600 px-4 py-3 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+          className="psBotao psPrimario"
         >
           {enviando ? "Salvando..." : "Salvar alterações"}
         </button>
 
         <Link
           href={`/motos/${id}`}
-          className="text-blue-600 underline"
+          className="psLink"
         >
           Cancelar
         </Link>

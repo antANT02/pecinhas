@@ -1,3 +1,4 @@
+import EstruturaPagina from "@/components/EstruturaPagina";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
@@ -44,10 +45,10 @@ export default async function NovoServicoPage({
   }
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-2xl px-4 py-8">
+    <EstruturaPagina tipo="formulario" etiqueta="DADOS & REGISTROS">
       <Link
         href={`/motos/${moto.id}`}
-        className="text-blue-600 underline"
+        className="psLink"
       >
         Voltar aos detalhes
       </Link>
@@ -58,11 +59,11 @@ export default async function NovoServicoPage({
         Moto: {moto.marca} {moto.modelo}
       </p>
 
-      <p className="mt-2 text-sm text-gray-600">
+      <p className="mt-2 text-sm psTextoSecundario">
         Os campos com * são obrigatórios.
       </p>
 
       <FormularioServico motoId={moto.id} />
-    </main>
+    </EstruturaPagina>
   );
 }

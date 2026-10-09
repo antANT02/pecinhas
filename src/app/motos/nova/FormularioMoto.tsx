@@ -82,10 +82,10 @@ export default function FormularioMoto() {
   }
 
   const classeCampo =
-    "w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3 py-3 text-slate-900 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 disabled:bg-slate-100";
+    "psCampo";
 
   return (
-    <form onSubmit={enviar} noValidate className="space-y-5">
+    <form onSubmit={enviar} noValidate className="psFormulario space-y-5">
       {campos.map((campo) => (
         <div key={campo.nome}>
           <label
@@ -141,7 +141,7 @@ export default function FormularioMoto() {
       {erro && (
         <p
           role="alert"
-          className="rounded-lg bg-red-50 p-3 text-sm text-red-700"
+          className="psAviso psErro"
         >
           {erro}
         </p>
@@ -150,7 +150,7 @@ export default function FormularioMoto() {
       {sucesso && (
         <p
           role="status"
-          className="rounded-lg bg-green-50 p-3 text-sm text-green-800"
+          className="psAviso psSucesso"
         >
           Moto cadastrada com sucesso!
         </p>
@@ -160,7 +160,7 @@ export default function FormularioMoto() {
         <button
           type="button"
           onClick={cadastrarOutra}
-          className="w-full rounded-lg bg-orange-600 px-4 py-3 font-semibold text-white hover:bg-orange-700"
+          className="w-full psBotao psPrimario"
         >
           Cadastrar outra moto
         </button>
@@ -168,7 +168,7 @@ export default function FormularioMoto() {
         <button
           type="submit"
           disabled={enviando}
-          className="w-full rounded-lg bg-orange-600 px-4 py-3 font-semibold text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full psBotao psPrimario"
         >
           {enviando ? "Salvando..." : "Cadastrar moto"}
         </button>

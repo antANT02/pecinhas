@@ -44,7 +44,7 @@ export default function BotaoExcluirMoto({
       <button
         type="button"
         onClick={() => setConfirmando(true)}
-        className="rounded-lg bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700"
+        className="psBotao psPerigo"
       >
         Excluir moto
       </button>
@@ -52,7 +52,7 @@ export default function BotaoExcluirMoto({
   }
 
   return (
-    <div className="w-full rounded-lg border border-red-300 p-4">
+    <div className="w-full psConfirmacao">
       <p className="font-semibold">
         Deseja excluir esta moto?
       </p>
@@ -65,7 +65,7 @@ export default function BotaoExcluirMoto({
       {erro && (
         <p
           role="alert"
-          className="mt-3 rounded-lg bg-red-50 p-3 text-red-800"
+          className="mt-3 psAviso psErro"
         >
           {erro}
         </p>
@@ -76,7 +76,7 @@ export default function BotaoExcluirMoto({
           type="button"
           onClick={confirmarExclusao}
           disabled={excluindo}
-          className="rounded-lg bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700 disabled:opacity-50"
+          className="psBotao psPerigo"
         >
           {excluindo ? "Excluindo..." : "Sim, excluir moto"}
         </button>
@@ -88,7 +88,7 @@ export default function BotaoExcluirMoto({
             setErro("");
           }}
           disabled={excluindo}
-          className="rounded-lg border px-4 py-2 disabled:opacity-50"
+          className="border px-4 py-2 disabled:opacity-50"
         >
           Cancelar
         </button>

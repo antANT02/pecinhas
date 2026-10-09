@@ -1,3 +1,4 @@
+import EstruturaPagina from "@/components/EstruturaPagina";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -17,11 +18,11 @@ export default async function PaginaNovaMoto() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-100 px-4 py-10 text-slate-900">
-      <section className="mx-auto w-full min-w-0 max-w-xl rounded-2xl bg-white p-6 shadow-lg sm:p-8">
+    <EstruturaPagina tipo="formulario" etiqueta="DADOS & REGISTROS">
+      <section className="psBlocoFormulario">
         <Link
           href="/painel"
-          className="text-sm font-semibold text-orange-700"
+          className="psLink"
         >
           Voltar ao painel
         </Link>
@@ -30,12 +31,12 @@ export default async function PaginaNovaMoto() {
           Cadastrar moto
         </h1>
 
-        <p className="mb-6 mt-2 text-slate-600">
+        <p className="mb-6 mt-2 psTextoSecundario">
           Preencha os dados da moto. Marca, modelo e ano são obrigatórios.
         </p>
 
         <FormularioMoto />
       </section>
-    </main>
+    </EstruturaPagina>
   );
 }

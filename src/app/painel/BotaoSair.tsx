@@ -41,7 +41,7 @@ export default function BotaoSair() {
         type="button"
         onClick={encerrarSessao}
         disabled={enviando}
-        className="rounded-lg bg-orange-600 px-5 py-3 font-semibold text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-60"
+        className="psBotao psSecundario"
       >
         {enviando ? "Saindo..." : "Sair"}
       </button>
@@ -49,7 +49,7 @@ export default function BotaoSair() {
       {erro && (
         <p
           role="alert"
-          className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-700"
+          className="mt-3 psAviso psErro"
         >
           {erro}
         </p>
