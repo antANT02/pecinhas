@@ -6,9 +6,9 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type PaginaInicialProps = {
-  searchParams: {
+  searchParams: Promise<{
     busca?: string | string[];
-  };
+  }>;
 };
 
 export default async function PaginaInicial({

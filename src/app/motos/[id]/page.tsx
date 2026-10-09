@@ -10,9 +10,9 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type DetalhesMotoProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 const formatarValor = new Intl.NumberFormat("pt-BR", {
@@ -27,6 +27,8 @@ const formatarData = new Intl.DateTimeFormat("pt-BR", {
 export default async function DetalhesMotoPage({
   params,
 }: DetalhesMotoProps) {
+  const { id } = await params;
+
   const sessao = await auth.api.getSession({
     headers: await headers(),
   });
@@ -37,7 +39,7 @@ export default async function DetalhesMotoPage({
 
   const moto = await prisma.moto.findFirst({
     where: {
-      id: params.id,
+      id,
       userId: sessao.user.id,
     },
     select: {

@@ -9,14 +9,16 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type FotoMotoProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export default async function FotoMotoPage({
   params,
 }: FotoMotoProps) {
+  const { id } = await params;
+
   const sessao = await auth.api.getSession({
     headers: await headers(),
   });
@@ -27,7 +29,7 @@ export default async function FotoMotoPage({
 
   const moto = await prisma.moto.findFirst({
     where: {
-      id: params.id,
+      id,
       userId: sessao.user.id,
     },
     select: {

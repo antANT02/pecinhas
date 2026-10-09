@@ -6,29 +6,34 @@
     "dev": "next dev",
     "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "prisma generate"
+    "lint": "eslint .",
+    "postinstall": "prisma generate",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.10.0",
     "@prisma/client": "7.10.0",
-    "@vercel/blob": "0.27.3",
-    "better-auth": "1.7.0",
-    "dotenv": "16.4.5",
-    "next": "14.2.35",
-    "react": "^18",
-    "react-dom": "^18",
-    "zod": "3.23.8"
+    "@vercel/blob": "2.8.0",
+    "better-auth": "1.7.6",
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "4.6.5"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.35",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.8",
     "postcss": "^8",
     "prisma": "7.10.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "dotenv": "18.0.4",
+    "tsx": "4.23.15"
+  },
+  "engines": {
+    "node": ">=20.19.0"
   }
 }
